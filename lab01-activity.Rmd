@@ -20,9 +20,10 @@ knitr::opts_chunk$set(echo = TRUE)
 The following code will ensure you have the necessary proxy settings in your ssh config. It also creates a symbolic link (like a shortcut) to the directory that contains the course files. If this is nonsense to you, don't worry about it and just read on. *If you are running this file for the second+ time, then you need to comment out these lines by adding # at the start of both of them.*
 
 ```{bash}
-mkdir ~/MBB243/
-ln -s /local-scratch/course_files/MBB243/ ~/files
+#mkdir ~/MBB243/
+#ln -s /local-scratch/course_files/MBB243/ ~/files
 ```
+
 
 The first run of the code chunk above (or the first time you knit this document) should automatically generate a link to the folder that contains all of the files required for our course this semester. You don't have to worry about what this is doing, but we do need this section in here for the first run.
 
@@ -46,12 +47,25 @@ Each RStudio user is given a home directory on the course server under `/localho
 Add R code and Bash code to the two empty code blocks below, respectively, to print out your current working directory. Add a comment to one of the code blocks that is just the full path to your home directory similar to the examples above.
 
 ```{r}
-
+getwd()
 ```
+## [1] "/local-scratch/localhome/sma289/lab-1-MeerjumlaS"
 
 ```{bash, engine.opts='-l'}
-
+pwd
 ```
+## /local-scratch/localhome/sma289/lab-1-MeerjumlaS
+
+
+
+
+
+
+
+
+
+
+
 ## Other extremely useful bash commands
 
 |Bash Command|Effect|
@@ -67,7 +81,11 @@ Add R code and Bash code to the two empty code blocks below, respectively, to pr
 |`cut -f 1,2,N FILE`| Take columns 1,2,N from a delimited file and pass to STDOUT|
 |`grep PATTERN FILE`| `grep` and `egrep` both search for simple or complex patterns of text in files |
 
-## Exploring `|`,`>`, `>>` and `<`
+
+  
+  
+  
+  ## Exploring `|`,`>`, `>>` and `<`
 
 Let's revisit some of the commands you saw used in class individually. The code below runs the same command and either prints the result out or stores it in a file. You can view the contents of the new file either in the file explorer in Rstudio or at the Terminal (e.g. using `cat`). 
 
@@ -84,7 +102,7 @@ head -n 25 /local-scratch/course_files/MBB243/Sneddon_genotypes.txt
 # the last bit is the full path to the file we want to use as input for the head command
 # You can save the output you see by "redirecting" STDOUT to a file. 
 
-head -n 25 /local-scratch/course_files/MBB243/Sneddon_genotypes.txt > ~/MBB243/genotype_head.txt
+head -n 25 /local-scratch/course_files/MBB243/Sneddon_genotypes.txt >> ~/MBB243/genotype_head.txt
 
 ```
 
@@ -94,9 +112,9 @@ You should have a few lines of genotype information in a new file named `~/MBB24
 cut -f 4 ~/MBB243/genotype_head.txt | sort | uniq
 # to help debug this, deconstruct it into smaller pieces.
 # then try running each set of commands before the pipe, e.g. uncomment the line below and re-run this chunk. What is the output?  
-#This is probably easier to do at the terminal instead of in the Rmarkdown
-# cut -f 4 ~/MBB243/genotype_head.txt | sort 
-# cut -f 4 ~/MBB243/genotype_head.txt 
+# This is probably easier to do at the terminal instead of in the Rmarkdown
+cut -f 4 ~/MBB243/genotype_head.txt
+cut -f 4 ~/MBB243/genotype_head.txt | sort | uniq
 ```
 
 ## Setting the value of a variable
@@ -134,6 +152,7 @@ Run the following code chunk once then use the RStudio terminal (not the Console
 ```{bash}
 echo "Hello terminal!" >> EMPTY.txt
 echo $(date) >> EMPTY.txt
+cat EMPTY.txt
 # The redirect operators > and >> are related but have different effects on existing files. It's important that you know the difference. 
 # If you aren't clear, go back to the earlier portion of this document that introduces it and/or ask the TA or instructor. 
 ```
@@ -142,7 +161,7 @@ echo $(date) >> EMPTY.txt
 
 Make a copy of the code chunk above and put it below this text in your version of the Rmd file. Modify the code so it instead creates a file with this exact name: `~/.bash_profile`. *General hint*: when you can, use copy/paste so you don't have to re-type a command or file name. You also need to change the code chunk to add a single line to the new file. The first line of text should be:
 
-`source ~/.bashrc`
+`source ~/.bashrc` 
 
 The second line should be:
 
@@ -152,7 +171,9 @@ Be careful here with the distinction between `>` and `>>`. The code should only 
 
 `cat ~/.bash_profile`
 
-**DELETE THIS TEXT AND PUT YOUR NEW CODE CHUNK HERE**
+```source ~/.bashrc
+DATA=/local-scratch/course_files/MBB243/
+```
 
 ## Setting a variable in R
 
@@ -273,7 +294,7 @@ At the end of every lab, replace TODO with DONE to the left of each task to indi
 |status|task|
 |-|-|
 |DONE|This file has been knit|
-|TODO| My .bashrc file exists|
-|TODO| Miniconda is installed|
-|TODO| I was able to install both Bioconda and samtools using conda|
-|TODO| The last few code chunks that run Python code run without errors when I knit this document|
+|DONE| My .bashrc file exists|
+|DONE| Miniconda is installed|
+|DONE| I was able to install both Bioconda and samtools using conda|
+|DONE| The last few code chunks that run Python code run without errors when I knit this document|
